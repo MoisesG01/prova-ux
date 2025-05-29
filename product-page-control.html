@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OfficeSupply Online - Teste A/B</title>
+    <link id="stylesheet" rel="stylesheet" href="style-variant.css" />
+    <script>
+      if (!localStorage.getItem("abGroup")) {
+        const group = Math.random() < 0.5 ? "A" : "B";
+        localStorage.setItem("abGroup", group);
+      }
+      const group = localStorage.getItem("abGroup");
+      document.documentElement.setAttribute("data-group", group);
+      if (group === "A") {
+        document
+          .getElementById("stylesheet")
+          .setAttribute("href", "style-control.css");
+      }
+    </script>
+  </head>
+
+  <body>
+    <header>
+      <div class="container">
+        <h1>OfficeSupply Online</h1>
+        <nav>
+          <ul>
+            <li><a href="#">Início</a></li>
+            <li><a href="#">Produtos</a></li>
+            <li><a href="#">Promoções</a></li>
+            <li><a href="#">Contato</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="product-detail">
+        <div class="product-image">
+          <img src="img001.jpeg" alt="Kit Escritório Premium" />
+        </div>
+        <div class="product-info">
+          <h2 class="product-title">Kit Escritório Premium Clássico</h2>
+          <p class="product-category">Categoria: Kits Essenciais</p>
+          <div class="product-price">
+            <span class="current-price">R$ 299,90</span>
+          </div>
+          <p class="product-description">
+            Um kit completo com itens essenciais de alta qualidade para o seu
+            dia a dia no escritório. Inclui canetas, cadernos, post-its e
+            organizadores. Perfeito para quem busca funcionalidade.
+          </p>
+          <button class="add-to-cart-btn" onclick="trackConversion()">
+            Adicionar ao Carrinho
+          </button>
+          <div class="product-features">
+            <h3>Características:</h3>
+            <ul>
+              <li>Canetas esferográficas de ponta fina</li>
+              <li>Caderno capa dura A5</li>
+              <li>Bloco de notas adesivas</li>
+              <li>Organizador de mesa compacto</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="featured-products">
+        <h2>Outros Produtos que Você Pode Gostar</h2>
+        <div class="product-grid">
+          <div
+            class="product-card destaque-profissional"
+            onclick="trackHighlightClick()"
+          >
+            <div class="selo-destaque-profissional">⭐ Top Escolha</div>
+            <img src="mouse.jpg" alt="Mouse Ergonômico Bluetooth" />
+            <h3>Mouse Ergonômico Bluetooth Silence</h3>
+            <p class="card-category">Categoria: Tecnologia Essencial</p>
+            <div class="badge-rating">★ 4.9 / 5.0 (1200 avaliações)</div>
+            <p class="card-price">R$ 149,90</p>
+            <button class="add-to-cart-btn-small destaque-btn">
+              Ver Detalhes
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 OfficeSupply Online. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Google Analytics Tracking -->
+    <script>
+      function trackConversion() {
+        if (typeof gtag === "function") {
+          gtag("event", "add_to_cart", {
+            event_category: "Teste AB",
+            event_label: "Produto Principal",
+            value: 299.9,
+          });
+        }
+      }
+
+      function trackHighlightClick() {
+        if (typeof gtag === "function") {
+          gtag("event", "click_destacado", {
+            event_category: "Teste AB",
+            event_label: "Produto Top Escolha",
+            value: 149.9,
+          });
+        }
+      }
+    </script>
+  </body>
+</html>
